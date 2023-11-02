@@ -3,5 +3,6 @@
 members = [
     "file-management",
     "main",
-    "primitives"
+    "primitives",
+    "guessing_game"
 ]
