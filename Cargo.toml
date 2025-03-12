@@ -1,7 +1,7 @@
 [workspace]
 
 members = [
-    "file-management",
+    "krate",
     "main",
     "primitives",
     "guessing_game"
