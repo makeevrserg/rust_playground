@@ -4,9 +4,15 @@ pub trait Krate<T> {
     fn read(&self) -> Result<T, Error>;
     fn write(&self, v: T) -> Result<(), Error>;
 }
-pub struct KrateLoader<T> {
-    pub load: fn() -> Result<T, Error>,
-    pub save: fn(T) -> Result<(), Error>,
+// pub struct KrateLoader<T> {
+//     pub load: Fn() -> Result<T, Error>,
+//     pub save: fn(T) -> Result<(), Error>,
+// }
+
+pub struct KrateLoader<T> 
+{ 
+    pub load: Box<dyn Fn() -> Result<T, Error>>,
+    pub save:  Box<dyn Fn(T) -> Result<(), Error>>
 }
 
 impl <T> Krate<T> for KrateLoader<T> {
