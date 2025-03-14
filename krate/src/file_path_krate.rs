@@ -2,13 +2,21 @@ use crate::krate::Krate;
 use std::fs::File;
 use std::io::{Error, Read, Write};
 
-pub struct FilePath {
-    pub path: String,
+struct FilePath {
+    path: String,
 }
 
-impl Krate for FilePath {
+pub fn file_krate(path: String) -> impl Krate<String> {
+    return FilePath {
+        path: path.to_string(),
+    };
+}
+
+
+
+impl Krate<String> for FilePath {
     fn read(&self) -> Result<String, Error> {
-        let mut file = File::open(&self.path);
+        let file = File::open(&self.path);
         match file {
             Ok(mut f) => {
                 let mut contents = String::new();
@@ -24,7 +32,7 @@ impl Krate for FilePath {
     }
 
     fn write(&self, v: String) -> Result<(), Error> {
-        let mut file = File::create(&self.path);
+        let file = File::create(&self.path);
         match file {
             Ok(mut f) => f.write_all(v.as_ref()),
             Err(error) => Result::Err(error),

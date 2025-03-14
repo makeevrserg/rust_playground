@@ -1,15 +1,18 @@
-use std::io::{Read, Write};
-use file_path_krate::FilePath;
-use krate::Krate;
+use crate::file_path_krate::file_krate;
+use krate::{ Krate, KrateLoader, };
+use std::{arch::aarch64::int32x2_t, io::{Read, Write}};
 
-mod krate;
 mod file_path_krate;
+mod krate;
 
 fn main() {
-    let path = FilePath {
-        path: String::from("./file.txt"),
-    };
-    path.write(String::from("Hello world")).unwrap();
+    let file_krate = file_krate(String::from("./file.txt"));
+    file_krate.write(String::from("Hello world")).unwrap();
+    // let transformer: Transformer<String, i32,dyn Krate<String>> = create_transformer(
+    //     krate,
+    //     |x: String| -> 1,
+    //     |x: int| -> {String::from("value")}
+    // );
 
-    println!("{}", path.read().unwrap().as_str());
+    println!("{}", file_krate.read().unwrap().as_str());
 }
