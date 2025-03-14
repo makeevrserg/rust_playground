@@ -2,9 +2,7 @@ use crate::krate::{Krate, KrateLoader};
 use std::fs::File;
 use std::io::{Error, Read, Write};
 
-pub struct FileKratePath {
-    path: String,
-}
+pub struct FileKratePath;
 
 
 impl FileKratePath {
